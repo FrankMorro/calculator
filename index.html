@@ -7,22 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculator</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="./script.js"></script>
 </head>
 
 <body>
   <div class="container">
     <div class="calculator">
       <div class="display">
-        <div class="display-history" id="display-history"></div>
-        <div class="display-text" id="display-text">0.00</div>
+        <div class="display-previous" id="display-previous">45*36</div>
+        <div class="display-output" id="display-output">9856985874585.00</div>
       </div>
       <div class="keypad">
         <div class="keypad-row">
           <button class="keypad-button" id="percentage">&#37;</button>
           <button class="keypad-button" id="ce">CE</button>
           <button class="keypad-button" id="clear">C</button>
-          <button class="keypad-button" id="backspace">&#8678;</button>
-          <!-- <button class="keypad-button" id="backspace">&#8249;</button> -->
+          <!-- <button class="keypad-button" id="backspace">,</button> -->
+          <button class="keypad-button" id="backspace">&#8249;</button>
 
         </div>
 
@@ -35,33 +36,33 @@
         </div>
 
         <div class="keypad-row">
-          <button class="keypad-button" id="7">7</button>
-          <button class="keypad-button" id="8">8</button>
-          <button class="keypad-button" id="9">9</button>
+          <button class="keypad-button digit" id="7">7</button>
+          <button class="keypad-button digit" id="8">8</button>
+          <button class="keypad-button digit" id="9">9</button>
           <!-- <button class="keypad-button" id="multiply">&#10060;</button> -->
           <button class="keypad-button" id="multiply">&#215</button>
         </div>
 
         <div class="keypad-row">
-          <button class="keypad-button" id="4">4</button>
-          <button class="keypad-button" id="5">5</button>
-          <button class="keypad-button" id="6">6</button>
+          <button class="keypad-button digit" id="4">4</button>
+          <button class="keypad-button digit" id="5">5</button>
+          <button class="keypad-button digit" id="6">6</button>
           <!-- <button class="keypad-button" id="subtract">&#10134;</button> -->
           <button class="keypad-button" id="subtract">&#8722;</button>
         </div>
 
         <div class="keypad-row">
-          <button class="keypad-button" id="1">1</button>
-          <button class="keypad-button" id="2">2</button>
-          <button class="keypad-button" id="3">3</button>
+          <button class="keypad-button digit" id="1">1</button>
+          <button class="keypad-button digit" id="2">2</button>
+          <button class="keypad-button digit" id="3">3</button>
           <!-- <button class="keypad-button" id="add">&#10133;</button> -->
           <button class="keypad-button" id="add">&#43</button>
         </div>
 
         <div class="keypad-row">
-          <button class="keypad-button" id="plusmn">&plusmn;</button>
-          <button class="keypad-button" id="0">0</button>
-          <button class="keypad-button" id="punto">&#46</button>
+          <button class="keypad-button digit" id="plusmn">&plusmn;</button>
+          <button class="keypad-button digit" id="0">0</button>
+          <button class="keypad-button digit" id="punto">&#46</button>
           <button class="keypad-button" id="equals">&#61;</button>
         </div>
 
@@ -75,7 +76,7 @@
 
 
 
-  <script src="./script.js"></script>
+  
 </body>
 
 </html>
