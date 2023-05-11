@@ -1,0 +1,32 @@
+html {
+  background-color: aquamarine;
+}
+
+.display {
+  background-color: bisque;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.display-history {
+  background-color: blue;
+  height: 40px;
+}
+.display-text {
+  background-color: rgb(10, 203, 221);
+  height: 40px;
+}
+
+.keypad-button {
+  width: 70px;
+  height: 55px;
+  font-size: xx-large;
+  color: brown;
+}
+
+.calculator {
+  background-color: blueviolet;
+  padding: 8px;
+  width: 300px;
+}
