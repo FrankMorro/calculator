@@ -66,7 +66,6 @@ body {
 }
 
 .display-previous {
-  /* background-color: rgb(73, 73, 88); */
   height: 30px;
   font-size: 16px;
   padding: 6px;
@@ -77,9 +76,11 @@ body {
 
 .display-output {
   flex: 1;
+  min-height: 58px;
   justify-content: center;
   padding: 8px;
-  font-size: 26px;
+  /* font-size: 26px; */
+  font-size: 34px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
