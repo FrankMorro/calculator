@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<link rel="icon" href="https://fav.farm/🔥" />
   <script src="./script.js"></script>
 </head>
 
@@ -17,56 +18,51 @@
   <div class="container">
     <div class="calculator">
       <div class="display">
-        <div class="display-previous" id="display-previous"></div>
-        <div class="display-output" id="display-output">0</div>
+        <div data-previous-operand class="display-previous" id="display-previous">&#8730;9</div>
+        <div data-current-operand class="display-output" id="display-output">9,236,958,745,823,659.</div>
       </div>
       <div class="keypad">
         <div class="keypad-row">
-          <button class="keypad-button" id="percentage">&#37;</button>
-          <button class="keypad-button" id="ce">CE</button>
-          <button class="keypad-button" id="clear">C</button>
-          <!-- <button class="keypad-button" id="backspace">,</button> -->
-          <button class="keypad-button" id="backspace">&#8249;</button>
+          <button data-percentage class="keypad-button" id="percentage">%</button>
+          <button data-clear class="keypad-button" id="ce">CE</button>
+          <button data-all-clear class="keypad-button" id="delete">C</button>
+          <button data-backspace class="keypad-button" id="backspace">&#8249;</button>
 
         </div>
 
         <div class="keypad-row">
-          <button class="keypad-button" id="unoX">&#8543;x</button>
-          <button class="keypad-button" id="sup2">x&#178;</button>
-          <button class="keypad-button" id="raiz">&#8730</button>
-          <!-- <button class="keypad-button" id="divide">&#10135;</button> -->
-          <button class="keypad-button" id="divide">&#247;</button>
+          <button data-frac1x class="keypad-button" id="frac1x">&#8543;x</button>
+          <button data-square class="keypad-button" id="sup2">x&#178;</button>
+          <button data-daric class="keypad-button" id="daric">&#8730;</button>
+          <button data-operation class="keypad-button" id="divide">&#247;</button>
         </div>
 
         <div class="keypad-row">
-          <button class="keypad-button digit" id="7">7</button>
-          <button class="keypad-button digit" id="8">8</button>
-          <button class="keypad-button digit" id="9">9</button>
-          <!-- <button class="keypad-button" id="multiply">&#10060;</button> -->
-          <button class="keypad-button" id="multiply">&#215</button>
+          <button data-digit class="keypad-button digit" id="7">7</button>
+          <button data-digit class="keypad-button digit" id="8">8</button>
+          <button data-digit class="keypad-button digit" id="9">9</button>
+          <button data-operation class="keypad-button" id="multiply">&#215</button>
         </div>
 
         <div class="keypad-row">
-          <button class="keypad-button digit" id="4">4</button>
-          <button class="keypad-button digit" id="5">5</button>
-          <button class="keypad-button digit" id="6">6</button>
-          <!-- <button class="keypad-button" id="subtract">&#10134;</button> -->
-          <button class="keypad-button" id="subtract">&#8722;</button>
+          <button data-digit class="keypad-button digit" id="4">4</button>
+          <button data-digit class="keypad-button digit" id="5">5</button>
+          <button data-digit class="keypad-button digit" id="6">6</button>
+          <button data-operation class="keypad-button" id="subtract">&#8722;</button>
         </div>
 
         <div class="keypad-row">
-          <button class="keypad-button digit" id="1">1</button>
-          <button class="keypad-button digit" id="2">2</button>
-          <button class="keypad-button digit" id="3">3</button>
-          <!-- <button class="keypad-button" id="add">&#10133;</button> -->
-          <button class="keypad-button" id="add">&#43</button>
+          <button data-digit class="keypad-button digit" id="1">1</button>
+          <button data-digit class="keypad-button digit" id="2">2</button>
+          <button data-digit class="keypad-button digit" id="3">3</button>
+          <button data-operation class="keypad-button" id="add">&#43</button>
         </div>
 
         <div class="keypad-row">
-          <button class="keypad-button digit" id="plusmn">&plusmn;</button>
-          <button class="keypad-button digit" id="0">0</button>
-          <button class="keypad-button digit" id="punto">&#46</button>
-          <button class="keypad-button" id="equals">&#61;</button>
+          <button data-plusmn class="keypad-button digit" id="plusmn">&plusmn;</button>
+          <button data-digit class="keypad-button digit" id="0">0</button>
+          <button data-digit class="keypad-button digit" id="punto">&#46</button>
+          <button data-equals class="keypad-button" id="equals">&#61;</button>
         </div>
 
       </div>
