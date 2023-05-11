@@ -107,7 +107,7 @@ body {
 }
 
 .keypad-button:hover {
-  background-color: #476072;
+  background-color: #47597e;
   color: #eeeeee;
 }
 
@@ -116,7 +116,7 @@ body {
 }
 
 .keypad-button:active {
-  background-color: #476072;
+  background-color: #47597e;
   transform: scale(0.95);
   color: #eeeeee;
   /* color: #334257; */
@@ -125,9 +125,19 @@ body {
 
 #equals {
   background-color: #87556f;
+  background-color: #3282b8;
 }
 
 #equals:hover {
   background-color: #59405c;
+  background-color: #0f4c75;
   color: #eeeeee;
+}
+
+.operation {
+  background-color: #162447;
+}
+
+.operation:hover {
+  background-color: #1f4068;
 }
