@@ -1,32 +1,118 @@
 html {
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
   background-color: aquamarine;
+
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background: linear-gradient(to right, #00aaff, #00ff6c); */
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  background-color: #404258;
+  padding: 8px;
+  width: 310px;
+  height: 460px;
+  align-items: center;
+  align-content: center;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px #888888;
 }
 
 .display {
   background-color: bisque;
-  height: 100px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.display-history {
-  background-color: blue;
+.display-previous,
+.display-output {
+  background-color: rgb(40, 40, 42);
   height: 40px;
+  text-align: right;
+  color: aliceblue;
+  border: 1px solid rgb(40, 40, 42);
 }
-.display-text {
-  background-color: rgb(10, 203, 221);
-  height: 40px;
+
+.display-previous {
+  font-size: 18px;
+  padding: 8px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.display-output {
+  flex: 1;
+  justify-content: center;
+  padding: 10px;
+  font-size: 2em;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.keypad {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2px;
+  margin-top: auto;
 }
 
 .keypad-button {
+  width: 100%;
   width: 70px;
   height: 55px;
-  font-size: xx-large;
+  font-size: 2rem;
+  border: 1px solid black;
   color: brown;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  background-color: #334257;
+  color: azure;
 }
 
-.calculator {
-  background-color: blueviolet;
-  padding: 8px;
-  width: 300px;
+.keypad-button:hover {
+  background-color: #548ca8;
+  color: #eeeeee;
+}
+
+.digit {
+  background-color: #6b728e;
+}
+
+.keypad-button:active {
+  background-color: #0b2447;
+  transform: scale(0.95);
+  color: #476072;
+  /* box-shadow: inset 0px 0px 5px #888; */
 }
