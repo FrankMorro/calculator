@@ -1,4 +1,5 @@
 html {
+  font-family: 'Roboto', sans-serif;
 }
 *,
 *::before,
@@ -10,11 +11,7 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
-  background-color: aquamarine;
-
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+  background-color: #4b5d67;
 }
 
 .container {
@@ -27,31 +24,34 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* background: linear-gradient(to right, #00aaff, #00ff6c); */
 }
 
 .calculator {
   display: flex;
   flex-direction: column;
   background-color: #404258;
-  padding: 8px;
+  padding: 5px;
   width: 310px;
   height: 460px;
   align-items: center;
   align-content: center;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px #888888;
+  box-shadow: 5px 5px 5px #393646;
+  height: auto;
+  /* border: 6px solid #334257; */
+  border: 1px solid #131212;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .display {
-  background-color: bisque;
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  height: 100%;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  border: 1px solid #131212;
 }
 
 .display-previous,
@@ -61,20 +61,25 @@ body {
   text-align: right;
   color: aliceblue;
   border: 1px solid rgb(40, 40, 42);
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .display-previous {
-  font-size: 18px;
-  padding: 8px;
+  /* background-color: rgb(73, 73, 88); */
+  height: 30px;
+  font-size: 16px;
+  padding: 6px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  color: #6b728e;
 }
 
 .display-output {
   flex: 1;
   justify-content: center;
-  padding: 10px;
-  font-size: 2em;
+  padding: 8px;
+  font-size: 2.5rem;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -102,7 +107,7 @@ body {
 }
 
 .keypad-button:hover {
-  background-color: #548ca8;
+  background-color: #476072;
   color: #eeeeee;
 }
 
@@ -111,8 +116,18 @@ body {
 }
 
 .keypad-button:active {
-  background-color: #0b2447;
+  background-color: #476072;
   transform: scale(0.95);
-  color: #476072;
+  color: #eeeeee;
+  /* color: #334257; */
   /* box-shadow: inset 0px 0px 5px #888; */
+}
+
+#equals {
+  background-color: #87556f;
+}
+
+#equals:hover {
+  background-color: #59405c;
+  color: #eeeeee;
 }
