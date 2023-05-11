@@ -141,3 +141,11 @@ body {
 .operation:hover {
   background-color: #1f4068;
 }
+
+.math-functions {
+  background-color: #2c3639;
+}
+
+.math-functions:hover {
+  background-color: #395b64;
+}
