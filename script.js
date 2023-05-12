@@ -422,20 +422,34 @@ function getPercentage() {
   let percent = 0
   let currenPercent = 0
 
+  console.log(lastEntry)
+
   switch (currentOperation) {
     case '÷':
-      currenPercent = currentOperand / 100
-      percent = previousOperand * currenPercent
-      currentOperand = currenPercent
+      if (lastEntry === entry.operator) {
+        currenPercent = previousOperand / 100
+        percent = previousOperand * currenPercent
+        currentOperand = currenPercent
+      } else {
+        currenPercent = currentOperand / 100
+        percent = previousOperand * currenPercent
+        currentOperand = currenPercent
+      }
 
       previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${currenPercent} =`
       currentOperandDisplay.textContent = currenPercent
       break
 
     case '×':
-      currenPercent = currentOperand / 100
-      percent = previousOperand * currenPercent
-      currentOperand = currenPercent
+      if (lastEntry === entry.operator) {
+        currenPercent = previousOperand / 100
+        percent = previousOperand * currenPercent
+        currentOperand = currenPercent
+      } else {
+        currenPercent = currentOperand / 100
+        percent = previousOperand * currenPercent
+        currentOperand = currenPercent
+      }
 
       previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${currenPercent} =`
       currentOperandDisplay.textContent = currenPercent
@@ -452,9 +466,15 @@ function getPercentage() {
       break
 
     case '+':
-      currenPercent = currentOperand / 100
-      percent = previousOperand * currenPercent
-      currentOperand = percent
+      if (lastEntry === entry.operator) {
+        currenPercent = previousOperand / 100
+        percent = previousOperand * currenPercent
+        currentOperand = percent
+      } else {
+        currenPercent = currentOperand / 100
+        percent = previousOperand * currenPercent
+        currentOperand = percent
+      }
 
       previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${percent} =`
       currentOperandDisplay.textContent = percent
@@ -468,7 +488,7 @@ function getPercentage() {
   lastEntry = entry.percent
 }
 
-// Event Listeners
+/***** Event Listeners *****/
 // Percentage Button
 percentageButton.addEventListener('click', (button) => {
   // TODO Pendiente agregar funcionalidad
@@ -492,8 +512,6 @@ backspaceButton.addEventListener('click', () => {
 
 // Frac1x Button
 frac1xButton.addEventListener('click', () => {
-  // console.log('current ' + currentOperand, typeof currentOperand)
-  // console.log('prev ' + previousOperand, typeof previousOperand)
   frac1x()
 })
 
@@ -529,8 +547,6 @@ equalsButton.addEventListener('click', () => {
     compute()
     return
   }
-
-  // if (lastEntry === entry.percent) return
 
   compute()
   previousOperand = currentOperand
