@@ -95,13 +95,31 @@ body {
   margin-top: auto;
 }
 
+#delete {
+  background-color: rgb(197, 74, 74);
+}
+
+#delete:hover {
+  background-color: rgb(211, 47, 47);
+  color: #eeeeee;
+}
+
+#ce {
+  background-color: rgb(53, 97, 219);
+}
+
+#ce:hover {
+  background-color: rgb(30, 77, 208);
+  color: #eeeeee;
+}
+
 .keypad-button {
   width: 100%;
   width: 80px;
   height: 60px;
   font-size: 2rem;
   border: 1px solid black;
-  color: brown;
+
   border-radius: 5px;
   cursor: pointer;
   outline: none;
