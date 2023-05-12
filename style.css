@@ -203,3 +203,10 @@ a {
   justify-content: center;
   text-align: center;
 }
+
+@media (hover: hover) and (pointer: fine) {
+  .keypad-button:hover {
+    background-color: #47597e;
+    color: #eeeeee;
+  }
+}
