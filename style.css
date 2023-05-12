@@ -30,13 +30,13 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #404258;
-  padding: 5px;
+  padding: 8px;
   width: 310px;
   height: 460px;
   align-items: center;
   align-content: center;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px #393646;
+  box-shadow: 0 0 5px 5px #393646;
   height: auto;
   /* border: 6px solid #334257; */
   border: 1px solid #131212;

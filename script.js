@@ -26,12 +26,25 @@ let operation = undefined
 
 let operand1 = 0
 let operand2 = 0
+let calculate = 0
+let lastEntry = 'NONE'
+
+const entry = {
+  none: 'NONE',
+  digit: 'DIGIT',
+  operator: 'OPERATOR',
+  equals: 'EQUALS',
+  ce: 'CE',
+}
+
+clear()
 
 // Function Section
 function clear() {
   currentOperandDisplay.textContent = '0'
-  currentOperand = '0'
+  currentOperand = ''
   operation = undefined
+  // lastEntry = entry.ce
 }
 
 function allClear() {
@@ -41,6 +54,7 @@ function allClear() {
   currentResult = 0
   currentOperation = ''
   clear()
+  lastEntry = entry.none
 }
 
 function backspace() {
@@ -61,16 +75,31 @@ function appendDigit(number) {
 
   if (number === '.' && currentOperand.includes('.')) return
 
-  if (currentOperand === '0') {
+  if (currentOperandDisplay.textContent === '0') {
     currentOperand = ''
   }
 
+  console.log(lastEntry)
+  if (lastEntry === entry.equals) {
+    previousOperandDisplay.textContent = ''
+  }
+
+  if (lastEntry !== entry.digit) {
+    currentOperand = ''
+    lastEntry = entry.digit
+  }
+
   currentOperand += number.toString()
+
+  //lastEntry = entry.digit
 }
 
 function chooseOperation(operationCurrent) {
-  console.log('operador ' + operationCurrent)
-  if (currentOperand === '') return
+  if (currentOperand === '') {
+    operation = operationCurrent
+    currentOperation = operationCurrent
+    return
+  }
 
   if (previousOperand !== '') {
     compute()
@@ -81,19 +110,26 @@ function chooseOperation(operationCurrent) {
   previousOperand = currentOperand
   currentOperand = ''
 
-  //previousOperandDisplay.textContent = previousOperand + ' ' + operationCurrent
+  console.log('prev ' + previousOperand)
+  console.log('last ' + lastEntry)
+  console.log('operator ' + entry.operator)
+  console.log(lastEntry === entry.digit)
 
-  console.log('operation ' + operationCurrent)
-  console.log('previo ' + previousOperand)
+  previousOperandDisplay.textContent = previousOperand + ' ' + operationCurrent
+
+  if (lastEntry === entry.digit) {
+    currentOperandDisplay.textContent = previousOperand
+  }
+
+  lastEntry = entry.operator
+
+  // console.log('operation ' + operationCurrent)
+  // console.log('previo ' + previousOperand)
 }
 
 function compute() {
-  let calculate
   operand1 = parseFloat(previousOperand)
   operand2 = parseFloat(currentOperand)
-
-  // TODO Quitar luego
-  console.log(operand1, operation, operand2)
 
   if (isNaN(operand1) || isNaN(operand2)) return
 
@@ -118,25 +154,59 @@ function compute() {
       return
   }
 
+  // if (lastEntry === entry.equals) {
+  //   compute()
+  // }
+
   //currentOperand = calculate
-  // previousOperand = calculate
+  previousOperand = calculate
   currentOperand = calculate
   operation = undefined
 
-  previousOperandDisplay.textContent = previousOperand.toString()
-  currentOperandDisplay.textContent = currentOperand.toString()
-  //previousOperand = ''
-
-  console.log(calculate)
+  previousOperandDisplay.textContent = calculate.toString()
+  currentOperandDisplay.textContent = calculate.toString()
+  previousOperand = ''
 }
 
 function updateDisplay() {
-  currentOperandDisplay.textContent = currentOperand
+  currentOperandDisplay.textContent = getDisplayNumber(currentOperand)
+
+  if (lastEntry === entry.operator) {
+    currentOperandDisplay.textContent = getDisplayNumber(previousOperand)
+    currentOperand = ''
+  }
 
   if (operation !== undefined) {
-    previousOperandDisplay.textContent = `${previousOperand} ${operation}`
+    previousOperandDisplay.textContent = `${getDisplayNumber(
+      previousOperand
+    )} ${operation}`
   } else {
-    previousOperandDisplay.textContent = `${operand1} ${currentOperation} ${operand2} =`
+    if (currentOperation === '') return
+
+    if (lastEntry === entry.equals) {
+      previousOperandDisplay.textContent = `${getDisplayNumber(
+        operand1
+      )} ${currentOperation} ${getDisplayNumber(operand2)} =`
+    }
+  }
+}
+
+function getDisplayNumber(number) {
+  const stringNumber = number.toString()
+  const integerDigits = parseFloat(stringNumber.split('.')[0])
+  const decimalDigits = stringNumber.split('.')[1]
+  let integerDisplay
+  if (isNaN(integerDigits)) {
+    integerDisplay = ''
+  } else {
+    integerDisplay = integerDigits.toLocaleString('en', {
+      maximumFractionDigits: 0,
+    })
+  }
+  if (decimalDigits != null) {
+    return `${integerDisplay}.${decimalDigits}`
+  } else {
+    return integerDisplay
   }
 }
 
@@ -189,5 +259,11 @@ operationButtons.forEach((button) => {
 // Equals Button
 equalsButton.addEventListener('click', () => {
   compute()
+  previousOperand = currentOperand
+  lastEntry = entry.equals
   updateDisplay()
 })
+
+// function newCompute() {
+//   lastEntry = entry.equals
+// }
