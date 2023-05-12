@@ -337,7 +337,7 @@ function sqrt() {
     return
   }
 
-  let sqrt = Math.sqrt(Number(currentOperandDisplay.textContent))
+  let sqrt = Math.sqrt(Number(currentOperand))
 
   if (sqrt.toString().length >= 14) {
     changeTextSize(30)
@@ -352,43 +352,18 @@ function sqrt() {
   lastEntry = entry.function
 }
 
-// Event Listeners
-// Percentage Button
-percentageButton.addEventListener('click', (button) => {
-  // TODO Pendiente agregar funcionalidad
-  console.log('percentage')
-})
-
-// Clear Button
-clearButton.addEventListener('click', () => {
-  clear()
-})
-
-// All Clear Button
-allClearButton.addEventListener('click', () => {
-  allClear()
-})
-
-// Backspace Button
-backspaceButton.addEventListener('click', () => {
-  backspace()
-})
-
-// Frac1x Button
-frac1xButton.addEventListener('click', () => {
-  // console.log('current ' + currentOperand, typeof currentOperand)
-  // console.log('prev ' + previousOperand, typeof previousOperand)
-
+function frac1x() {
+  // TODO
   if (currentOperand === '0') {
     return
   }
 
   let frac1x = 0
 
-  console.log('lastEntry ', lastEntry)
+  // console.log('lastEntry ', lastEntry)
 
   if (lastEntry === entry.function) {
-    console.log('current FUNCTION ', currentOperand)
+    // console.log('current FUNCTION ', currentOperand)
     frac1x = 1 / currentOperand
 
     if (frac1x === Infinity) {
@@ -402,7 +377,7 @@ frac1xButton.addEventListener('click', () => {
   }
 
   if (lastEntry === entry.equals || lastEntry === entry.digit) {
-    console.log('current digit ', currentOperand)
+    // console.log('current digit ', currentOperand)
     frac1x = 1 / currentOperand
     previousOperandDisplay.textContent = `1/(${currentOperand})`
   }
@@ -434,6 +409,35 @@ frac1xButton.addEventListener('click', () => {
 
   currentOperandDisplay.textContent = frac1x
   lastEntry = entry.function
+}
+
+// Event Listeners
+// Percentage Button
+percentageButton.addEventListener('click', (button) => {
+  // TODO Pendiente agregar funcionalidad
+  console.log('percentage')
+})
+
+// Clear Button
+clearButton.addEventListener('click', () => {
+  clear()
+})
+
+// All Clear Button
+allClearButton.addEventListener('click', () => {
+  allClear()
+})
+
+// Backspace Button
+backspaceButton.addEventListener('click', () => {
+  backspace()
+})
+
+// Frac1x Button
+frac1xButton.addEventListener('click', () => {
+  // console.log('current ' + currentOperand, typeof currentOperand)
+  // console.log('prev ' + previousOperand, typeof previousOperand)
+  frac1x()
 })
 
 //Square Button
