@@ -12,6 +12,7 @@ body {
   margin: 0;
   height: 100%;
   background-color: #4b5d67;
+  /* background-color: #293b5f; */
 }
 
 .container {
@@ -158,10 +159,25 @@ body {
 }
 
 .footer-text {
-  font-size: 24px;
+  font-size: 18px;
   color: azure;
 }
 
 .name {
-  color: #162447;
+  color: #b2ab8c;
+}
+
+a {
+  /* text-decoration-line: none; */
+  /* text-decoration-line: underline; */
+  text-decoration-color: #b2ab8c;
+  text-underline-offset: 5px;
+}
+
+.footer-text {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
