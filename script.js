@@ -38,6 +38,7 @@ const entry = {
   digit: 'DIGIT',
   operator: 'OPERATOR',
   equals: 'EQUALS',
+  function: 'FUNCTION',
   ce: 'CE',
 }
 
@@ -178,12 +179,14 @@ function chooseOperation(operationCurrent) {
 }
 
 function compute() {
-  operand1 = parseFloat(previousOperand)
-  operand2 = parseFloat(currentOperand)
+  if (lastEntry !== entry.equals) {
+    operand1 = parseFloat(previousOperand)
+    operand2 = parseFloat(currentOperand)
+  }
 
   if (isNaN(operand1) || isNaN(operand2)) return
 
-  switch (operation) {
+  switch (currentOperation) {
     case '÷':
       calculate = operand1 / operand2
       break
@@ -277,30 +280,43 @@ function getDisplayNumber(number) {
 }
 
 function square() {
-  // console.log(currentOperand, typeof currentOperand)
-
   if (currentOperand === '0') {
     return
   }
 
-  let square = Number(currentOperand) ** 2
+  let square = 0.0
 
-  calculate = square
+  if (lastEntry === entry.function) {
+    square = Number(currentOperand) ** 2
+    if (square === Infinity) {
+      currentOperandDisplay.textContent = 'Desbordamiento'
+      isError = true
+      return
+    } else {
+      previousOperandDisplay.textContent = `sqr(${currentOperand})`
+    }
 
-  // console.log('Sqs: ' + square)
+    calculate = square
+  }
 
-  previousOperandDisplay.textContent = `sqr(${currentOperand})`
+  if (lastEntry === entry.equals || lastEntry === entry.digit) {
+    square = Number(currentOperand) ** 2
+    calculate = square
+    previousOperandDisplay.textContent = `sqr(${currentOperand})`
+  }
+
+  if (lastEntry === entry.operator) {
+    square = Number(previousOperand) ** 2
+    calculate = square
+    previousOperandDisplay.textContent = `sqr(${previousOperand})`
+  }
 
   if (lastEntry === entry.digit) {
     currentOperand = ''
-    lastEntry = entry.equals
-  } else {
-    lastEntry = entry.operator
+    // lastEntry = entry.equals
   }
 
   currentOperand = square
-
-  // console.log('Current: ' + currentOperand, 'operador ', operation)
 
   if (square.toString().length >= DEFAULT_DISPLAY_NUMBER) {
     changeTextSize(30)
@@ -308,12 +324,38 @@ function square() {
     changeTextSize(40)
   }
 
+  // currentOperandDisplay.textContent = getDisplayNumber(square.toFixed(6))
   currentOperandDisplay.textContent = getDisplayNumber(square)
+  lastEntry = entry.function
+}
+
+function sqrt() {
+  if (currentOperand < 0) {
+    previousOperandDisplay.textContent = `\u221A${currentOperand}`
+    currentOperandDisplay.textContent = 'Entrada no válida'
+    currentOperand = ''
+    return
+  }
+
+  let sqrt = Math.sqrt(Number(currentOperandDisplay.textContent))
+
+  if (sqrt.toString().length >= 14) {
+    changeTextSize(30)
+  } else {
+    changeTextSize(40)
+  }
+
+  previousOperandDisplay.textContent = `\u221A(${currentOperand})`
+  currentOperandDisplay.textContent = sqrt
+
+  currentOperand = sqrt
+  lastEntry = entry.function
 }
 
 // Event Listeners
 // Percentage Button
 percentageButton.addEventListener('click', (button) => {
+  // TODO Pendiente agregar funcionalidad
   console.log('percentage')
 })
 
@@ -334,8 +376,8 @@ backspaceButton.addEventListener('click', () => {
 
 // Frac1x Button
 frac1xButton.addEventListener('click', () => {
-  console.log('current ' + currentOperand, typeof currentOperand)
-  console.log('prev ' + previousOperand, typeof previousOperand)
+  // console.log('current ' + currentOperand, typeof currentOperand)
+  // console.log('prev ' + previousOperand, typeof previousOperand)
 
   if (currentOperand === '0') {
     return
@@ -343,17 +385,35 @@ frac1xButton.addEventListener('click', () => {
 
   let frac1x = 0
 
-  if (lastEntry === entry.equals) {
+  console.log('lastEntry ', lastEntry)
+
+  if (lastEntry === entry.function) {
+    console.log('current FUNCTION ', currentOperand)
+    frac1x = 1 / currentOperand
+
+    if (frac1x === Infinity) {
+      isError = true
+      currentOperandDisplay.textContent = `Error`
+      previousOperandDisplay.textContent = `1/(${currentOperand})`
+      return
+    } else {
+      previousOperandDisplay.textContent = `1/(${currentOperand})`
+    }
+  }
+
+  if (lastEntry === entry.equals || lastEntry === entry.digit) {
+    console.log('current digit ', currentOperand)
     frac1x = 1 / currentOperand
     previousOperandDisplay.textContent = `1/(${currentOperand})`
   }
 
-  if (lastEntry === entry.digit) {
-    frac1x = 1 / currentOperand
-    previousOperandDisplay.textContent = `1/(${currentOperand})`
-  }
+  // if (lastEntry === entry.digit) {
+  //   frac1x = 1 / currentOperand
+  //   previousOperandDisplay.textContent = `1/(${currentOperand})`
+  // }
 
   if (lastEntry === entry.operator) {
+    console.log('previous operand', previousOperand)
     frac1x = 1 / previousOperand
     previousOperandDisplay.textContent = `1/(${previousOperand})`
   }
@@ -361,8 +421,6 @@ frac1xButton.addEventListener('click', () => {
   if (lastEntry === entry.digit) {
     currentOperand = ''
     lastEntry = entry.equals
-  } else {
-    lastEntry = entry.operator
   }
 
   currentOperand = frac1x
@@ -375,6 +433,7 @@ frac1xButton.addEventListener('click', () => {
   }
 
   currentOperandDisplay.textContent = frac1x
+  lastEntry = entry.function
 })
 
 //Square Button
@@ -383,7 +442,9 @@ squareButton.addEventListener('click', () => {
 })
 
 // Daric Button
-daricButton.addEventListener('click', () => {})
+daricButton.addEventListener('click', () => {
+  sqrt()
+})
 
 // Digit Buttons
 digitButtons.forEach((button) => {
@@ -403,6 +464,11 @@ operationButtons.forEach((button) => {
 
 // Equals Button
 equalsButton.addEventListener('click', () => {
+  if (lastEntry === entry.equals) {
+    compute()
+    return
+  }
+
   compute()
   previousOperand = currentOperand
   lastEntry = entry.equals
@@ -424,3 +490,16 @@ plusMnButton.addEventListener('click', () => {
 
   currentOperandDisplay.textContent = getDisplayNumber(currentOperand)
 })
+
+// function hasMoreThanTenZeros(num) {
+//   const str = num.toString();
+//   const decimalIndex = str.indexOf('.');
+//   if (decimalIndex === -1) {
+//     return false;
+//   }
+//   const zerosAfterDecimal = str.length - decimalIndex - 1;
+//   return zerosAfterDecimal > 10;
+// }
+
+// console.log(hasMoreThanTenZeros(0.00000000001)); // true
+// console.log(hasMoreThanTenZeros(0.000000000001)); // false
