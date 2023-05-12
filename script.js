@@ -39,6 +39,7 @@ const entry = {
   operator: 'OPERATOR',
   equals: 'EQUALS',
   function: 'FUNCTION',
+  percent: 'PERCENT',
   ce: 'CE',
 }
 
@@ -122,10 +123,13 @@ function appendDigit(number) {
     changeTextSize(40)
   }
 
+  // console.log('antes del return ', lastEntry)
+
   if (
     number === '\u002E' &&
     currentOperand.toString().includes('\u002E') &&
-    lastEntry !== entry.equals
+    lastEntry !== entry.equals &&
+    lastEntry !== entry.function
   )
     return
 
@@ -141,8 +145,12 @@ function appendDigit(number) {
     currentOperand = ''
   }
 
+  // console.log(lastEntry)
   if (
-    (lastEntry === entry.none || lastEntry === entry.equals) &&
+    (lastEntry === entry.none ||
+      lastEntry === entry.function ||
+      lastEntry === entry.ce ||
+      lastEntry === entry.equals) &&
     number === '\u002E'
   ) {
     currentOperand = '0'
@@ -353,7 +361,6 @@ function sqrt() {
 }
 
 function frac1x() {
-  // TODO
   if (currentOperand === '0') {
     return
   }
@@ -400,8 +407,8 @@ function frac1x() {
 
   currentOperand = frac1x
 
-  if (frac1x.toString().length >= 18) {
-    changeTextSize(30)
+  if (frac1x.toString().length >= 16) {
+    changeTextSize(28)
     frac1x = frac1x.toFixed(16)
   } else {
     changeTextSize(40)
@@ -411,11 +418,61 @@ function frac1x() {
   lastEntry = entry.function
 }
 
+function getPercentage() {
+  let percent = 0
+  let currenPercent = 0
+
+  switch (currentOperation) {
+    case '÷':
+      currenPercent = currentOperand / 100
+      percent = previousOperand * currenPercent
+      currentOperand = currenPercent
+
+      previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${currenPercent} =`
+      currentOperandDisplay.textContent = currenPercent
+      break
+
+    case '×':
+      currenPercent = currentOperand / 100
+      percent = previousOperand * currenPercent
+      currentOperand = currenPercent
+
+      previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${currenPercent} =`
+      currentOperandDisplay.textContent = currenPercent
+
+      break
+
+    case '−':
+      currenPercent = currentOperand / 100
+      percent = previousOperand * currenPercent
+      currentOperand = percent
+
+      previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${percent} =`
+      currentOperandDisplay.textContent = percent
+      break
+
+    case '+':
+      currenPercent = currentOperand / 100
+      percent = previousOperand * currenPercent
+      currentOperand = percent
+
+      previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${percent} =`
+      currentOperandDisplay.textContent = percent
+
+      break
+
+    default:
+      return
+  }
+
+  lastEntry = entry.percent
+}
+
 // Event Listeners
 // Percentage Button
 percentageButton.addEventListener('click', (button) => {
   // TODO Pendiente agregar funcionalidad
-  console.log('percentage')
+  getPercentage()
 })
 
 // Clear Button
@@ -473,6 +530,8 @@ equalsButton.addEventListener('click', () => {
     return
   }
 
+  // if (lastEntry === entry.percent) return
+
   compute()
   previousOperand = currentOperand
   lastEntry = entry.equals
@@ -494,16 +553,3 @@ plusMnButton.addEventListener('click', () => {
 
   currentOperandDisplay.textContent = getDisplayNumber(currentOperand)
 })
-
-// function hasMoreThanTenZeros(num) {
-//   const str = num.toString();
-//   const decimalIndex = str.indexOf('.');
-//   if (decimalIndex === -1) {
-//     return false;
-//   }
-//   const zerosAfterDecimal = str.length - decimalIndex - 1;
-//   return zerosAfterDecimal > 10;
-// }
-
-// console.log(hasMoreThanTenZeros(0.00000000001)); // true
-// console.log(hasMoreThanTenZeros(0.000000000001)); // false
