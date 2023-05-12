@@ -29,6 +29,8 @@ let operand2 = 0
 let calculate = 0
 let lastEntry = 'NONE'
 
+const DEFAULT_DISPLAY_NUMBER = 12
+
 const entry = {
   none: 'NONE',
   digit: 'DIGIT',
@@ -42,9 +44,10 @@ clear()
 // Function Section
 function clear() {
   currentOperandDisplay.textContent = '0'
-  currentOperand = ''
-  operation = undefined
-  // lastEntry = entry.ce
+  currentOperand = '0'
+  // operation = undefined
+  lastEntry = entry.ce
+  changeTextSize(40)
 }
 
 function allClear() {
@@ -53,41 +56,86 @@ function allClear() {
   previousOperand = ''
   currentResult = 0
   currentOperation = ''
+  operation = undefined
   clear()
   lastEntry = entry.none
+  changeTextSize(40)
 }
 
 function backspace() {
+  if (lastEntry === entry.operator) return
+
+  if (lastEntry === entry.equals) {
+    allClear()
+    return
+  }
+
   if (currentOperandDisplay.textContent.length === 1) {
     currentOperandDisplay.textContent = '0'
     currentOperand = '0'
   } else {
-    currentOperandDisplay.textContent = currentOperandDisplay.textContent.slice(
-      0,
-      -1
-    )
+    currentOperandDisplay.textContent = currentOperand.toString().slice(0, -1)
+
     currentOperand = Number(currentOperandDisplay.textContent)
   }
+
+  currentOperandDisplay.textContent = getDisplayNumber(
+    currentOperandDisplay.textContent
+  )
+
+  if (currentOperand.length >= DEFAULT_DISPLAY_NUMBER) {
+    changeTextSize(30)
+  } else {
+    changeTextSize(40)
+  }
+  lastEntry = entry.digit
+}
+
+function changeTextSize(num) {
+  let font = parseInt(num)
+  currentOperandDisplay.style.fontSize = font + 'px'
 }
 
 function appendDigit(number) {
-  if (currentOperand.length > 13) return
+  console.log(currentOperand)
 
-  if (number === '.' && currentOperand.includes('.')) return
+  if (currentOperand.length >= 16) return
+
+  if (currentOperand.length >= DEFAULT_DISPLAY_NUMBER) {
+    changeTextSize(30)
+  } else {
+    changeTextSize(40)
+  }
+
+  if (
+    number === '\u002E' &&
+    currentOperand.toString().includes('\u002E') &&
+    lastEntry !== entry.equals
+  )
+    return
 
   if (currentOperandDisplay.textContent === '0') {
     currentOperand = ''
   }
 
-  console.log(lastEntry)
+  // console.log(lastEntry)
   if (lastEntry === entry.equals) {
     previousOperandDisplay.textContent = ''
   }
 
   if (lastEntry !== entry.digit) {
     currentOperand = ''
-    lastEntry = entry.digit
+    // lastEntry = entry.digit
   }
+
+  if (
+    (lastEntry === entry.none || lastEntry === entry.equals) &&
+    number === '\u002E'
+  ) {
+    currentOperand = '0'
+  }
+
+  lastEntry = entry.digit
 
   currentOperand += number.toString()
 
@@ -110,10 +158,10 @@ function chooseOperation(operationCurrent) {
   previousOperand = currentOperand
   currentOperand = ''
 
-  console.log('prev ' + previousOperand)
-  console.log('last ' + lastEntry)
-  console.log('operator ' + entry.operator)
-  console.log(lastEntry === entry.digit)
+  // console.log('prev ' + previousOperand)
+  // console.log('last ' + lastEntry)
+  // console.log('operator ' + entry.operator)
+  // console.log(lastEntry === entry.digit)
 
   previousOperandDisplay.textContent = previousOperand + ' ' + operationCurrent
 
@@ -130,6 +178,8 @@ function chooseOperation(operationCurrent) {
 function compute() {
   operand1 = parseFloat(previousOperand)
   operand2 = parseFloat(currentOperand)
+
+  // console.log(operand1, operand2)
 
   if (isNaN(operand1) || isNaN(operand2)) return
 
@@ -154,14 +204,18 @@ function compute() {
       return
   }
 
-  // if (lastEntry === entry.equals) {
-  //   compute()
-  // }
-
   //currentOperand = calculate
   previousOperand = calculate
   currentOperand = calculate
   operation = undefined
+
+  if (calculate.toString().length >= 16) {
+    changeTextSize(26)
+  } else if (calculate.toString().length >= DEFAULT_DISPLAY_NUMBER) {
+    changeTextSize(30)
+  } else {
+    changeTextSize(40)
+  }
 
   previousOperandDisplay.textContent = calculate.toString()
   currentOperandDisplay.textContent = calculate.toString()
