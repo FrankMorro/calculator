@@ -17,6 +17,7 @@ const daricButton = document.querySelector('[data-daric]')
 const digitButtons = document.querySelectorAll('[data-digit]')
 const operationButtons = document.querySelectorAll('[data-operation]')
 const equalsButton = document.querySelector('[data-equals]')
+const plusMnButton = document.querySelector('[data-plusmn]')
 
 let currentOperand = '0'
 let previousOperand = ''
@@ -335,6 +336,18 @@ equalsButton.addEventListener('click', () => {
   updateDisplay()
 })
 
-// function newCompute() {
-//   lastEntry = entry.equals
-// }
+// PlusMn Button
+plusMnButton.addEventListener('click', () => {
+  console.log(currentOperand, typeof currentOperand)
+  if (currentOperand === '0') {
+    return
+  }
+
+  if (currentOperand.toString().includes('-')) {
+    currentOperand = currentOperand.toString().replace('-', '')
+  } else {
+    currentOperand = '-' + currentOperand
+  }
+
+  currentOperandDisplay.textContent = getDisplayNumber(currentOperand)
+})
