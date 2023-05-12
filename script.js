@@ -230,7 +230,7 @@ function compute() {
 
 function updateDisplay() {
   console.log(calculate, typeof calculate)
-  if (calculate === Infinity) {
+  if (calculate === Infinity || calculate === -Infinity) {
     clear()
     changeTextSize(24)
     isError = true
