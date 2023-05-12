@@ -183,12 +183,6 @@ function compute() {
 
   if (isNaN(operand1) || isNaN(operand2)) return
 
-  // isError = false
-  // if (operand2 === 0) {
-  //   isError = true
-  //   //return
-  // }
-
   switch (operation) {
     case '÷':
       calculate = operand1 / operand2
@@ -229,7 +223,7 @@ function compute() {
 }
 
 function updateDisplay() {
-  console.log(calculate, typeof calculate)
+  // console.log(calculate, typeof calculate)
   if (calculate === Infinity || calculate === -Infinity) {
     clear()
     changeTextSize(24)
@@ -315,7 +309,6 @@ function square() {
   }
 
   currentOperandDisplay.textContent = getDisplayNumber(square)
-  Math.sq
 }
 
 // Event Listeners
@@ -340,7 +333,49 @@ backspaceButton.addEventListener('click', () => {
 })
 
 // Frac1x Button
-frac1xButton.addEventListener('click', () => {})
+frac1xButton.addEventListener('click', () => {
+  console.log('current ' + currentOperand, typeof currentOperand)
+  console.log('prev ' + previousOperand, typeof previousOperand)
+
+  if (currentOperand === '0') {
+    return
+  }
+
+  let frac1x = 0
+
+  if (lastEntry === entry.equals) {
+    frac1x = 1 / currentOperand
+    previousOperandDisplay.textContent = `1/(${currentOperand})`
+  }
+
+  if (lastEntry === entry.digit) {
+    frac1x = 1 / currentOperand
+    previousOperandDisplay.textContent = `1/(${currentOperand})`
+  }
+
+  if (lastEntry === entry.operator) {
+    frac1x = 1 / previousOperand
+    previousOperandDisplay.textContent = `1/(${previousOperand})`
+  }
+
+  if (lastEntry === entry.digit) {
+    currentOperand = ''
+    lastEntry = entry.equals
+  } else {
+    lastEntry = entry.operator
+  }
+
+  currentOperand = frac1x
+
+  if (frac1x.toString().length >= 18) {
+    changeTextSize(30)
+    frac1x = frac1x.toFixed(16)
+  } else {
+    changeTextSize(40)
+  }
+
+  currentOperandDisplay.textContent = frac1x
+})
 
 //Square Button
 squareButton.addEventListener('click', () => {
