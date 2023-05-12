@@ -282,6 +282,42 @@ function getDisplayNumber(number) {
   }
 }
 
+function square() {
+  // console.log(currentOperand, typeof currentOperand)
+
+  if (currentOperand === '0') {
+    return
+  }
+
+  let square = Number(currentOperand) ** 2
+
+  calculate = square
+
+  // console.log('Sqs: ' + square)
+
+  previousOperandDisplay.textContent = `sqr(${currentOperand})`
+
+  if (lastEntry === entry.digit) {
+    currentOperand = ''
+    lastEntry = entry.equals
+  } else {
+    lastEntry = entry.operator
+  }
+
+  currentOperand = square
+
+  // console.log('Current: ' + currentOperand, 'operador ', operation)
+
+  if (square.toString().length >= DEFAULT_DISPLAY_NUMBER) {
+    changeTextSize(30)
+  } else {
+    changeTextSize(40)
+  }
+
+  currentOperandDisplay.textContent = getDisplayNumber(square)
+  Math.sq
+}
+
 // Event Listeners
 // Percentage Button
 percentageButton.addEventListener('click', (button) => {
@@ -307,7 +343,9 @@ backspaceButton.addEventListener('click', () => {
 frac1xButton.addEventListener('click', () => {})
 
 //Square Button
-squareButton.addEventListener('click', () => {})
+squareButton.addEventListener('click', () => {
+  square()
+})
 
 // Daric Button
 daricButton.addEventListener('click', () => {})
