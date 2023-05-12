@@ -28,6 +28,7 @@ let operand1 = 0
 let operand2 = 0
 let calculate = 0
 let lastEntry = 'NONE'
+let isError = false
 
 const DEFAULT_DISPLAY_NUMBER = 12
 
@@ -43,9 +44,13 @@ clear()
 
 // Function Section
 function clear() {
+  if (isError) {
+    previousOperandDisplay.textContent = ''
+  }
+
   currentOperandDisplay.textContent = '0'
   currentOperand = '0'
-  // operation = undefined
+  calculate = 0
   lastEntry = entry.ce
   changeTextSize(40)
 }
@@ -63,6 +68,10 @@ function allClear() {
 }
 
 function backspace() {
+  if (isError) {
+    allClear()
+  }
+
   if (lastEntry === entry.operator) return
 
   if (lastEntry === entry.equals) {
@@ -97,7 +106,11 @@ function changeTextSize(num) {
 }
 
 function appendDigit(number) {
-  console.log(currentOperand)
+  // console.log(currentOperand)
+
+  if (isError) {
+    previousOperandDisplay.textContent = ''
+  }
 
   if (currentOperand.length >= 16) return
 
@@ -118,14 +131,12 @@ function appendDigit(number) {
     currentOperand = ''
   }
 
-  // console.log(lastEntry)
   if (lastEntry === entry.equals) {
     previousOperandDisplay.textContent = ''
   }
 
   if (lastEntry !== entry.digit) {
     currentOperand = ''
-    // lastEntry = entry.digit
   }
 
   if (
@@ -138,8 +149,6 @@ function appendDigit(number) {
   lastEntry = entry.digit
 
   currentOperand += number.toString()
-
-  //lastEntry = entry.digit
 }
 
 function chooseOperation(operationCurrent) {
@@ -158,11 +167,6 @@ function chooseOperation(operationCurrent) {
   previousOperand = currentOperand
   currentOperand = ''
 
-  // console.log('prev ' + previousOperand)
-  // console.log('last ' + lastEntry)
-  // console.log('operator ' + entry.operator)
-  // console.log(lastEntry === entry.digit)
-
   previousOperandDisplay.textContent = previousOperand + ' ' + operationCurrent
 
   if (lastEntry === entry.digit) {
@@ -170,18 +174,19 @@ function chooseOperation(operationCurrent) {
   }
 
   lastEntry = entry.operator
-
-  // console.log('operation ' + operationCurrent)
-  // console.log('previo ' + previousOperand)
 }
 
 function compute() {
   operand1 = parseFloat(previousOperand)
   operand2 = parseFloat(currentOperand)
 
-  // console.log(operand1, operand2)
-
   if (isNaN(operand1) || isNaN(operand2)) return
+
+  // isError = false
+  // if (operand2 === 0) {
+  //   isError = true
+  //   //return
+  // }
 
   switch (operation) {
     case '÷':
@@ -223,6 +228,15 @@ function compute() {
 }
 
 function updateDisplay() {
+  console.log(calculate, typeof calculate)
+  if (calculate === Infinity) {
+    clear()
+    changeTextSize(24)
+    isError = true
+    currentOperandDisplay.textContent = 'No se puede dividir entre cero'
+    return
+  }
+
   currentOperandDisplay.textContent = getDisplayNumber(currentOperand)
 
   if (lastEntry === entry.operator) {
@@ -249,7 +263,9 @@ function getDisplayNumber(number) {
   const stringNumber = number.toString()
   const integerDigits = parseFloat(stringNumber.split('.')[0])
   const decimalDigits = stringNumber.split('.')[1]
+
   let integerDisplay
+
   if (isNaN(integerDigits)) {
     integerDisplay = ''
   } else {
@@ -257,6 +273,7 @@ function getDisplayNumber(number) {
       maximumFractionDigits: 0,
     })
   }
+
   if (decimalDigits != null) {
     return `${integerDisplay}.${decimalDigits}`
   } else {
