@@ -109,8 +109,6 @@ function changeTextSize(num) {
 }
 
 function appendDigit(number) {
-  // console.log(currentOperand)
-
   if (isError) {
     previousOperandDisplay.textContent = ''
   }
@@ -122,8 +120,6 @@ function appendDigit(number) {
   } else {
     changeTextSize(40)
   }
-
-  // console.log('antes del return ', lastEntry)
 
   if (
     number === '\u002E' &&
@@ -139,13 +135,13 @@ function appendDigit(number) {
 
   if (lastEntry === entry.equals) {
     previousOperandDisplay.textContent = ''
+    previousOperand = '0'
   }
 
   if (lastEntry !== entry.digit) {
     currentOperand = ''
   }
 
-  // console.log(lastEntry)
   if (
     (lastEntry === entry.none ||
       lastEntry === entry.function ||
@@ -187,10 +183,15 @@ function chooseOperation(operationCurrent) {
 }
 
 function compute() {
-  if (lastEntry !== entry.equals) {
-    operand1 = parseFloat(previousOperand)
-    operand2 = parseFloat(currentOperand)
-  }
+  // if (lastEntry === entry.equals) {
+  //   operand1 = parseFloat(previousOperand)
+  //   operand2 = parseFloat(currentOperand)
+  // }
+
+  //
+
+  operand1 = parseFloat(previousOperand)
+  operand2 = parseFloat(currentOperand)
 
   if (isNaN(operand1) || isNaN(operand2)) return
 
@@ -231,6 +232,13 @@ function compute() {
   previousOperandDisplay.textContent = calculate.toString()
   currentOperandDisplay.textContent = calculate.toString()
   previousOperand = ''
+
+  console.log(lastEntry)
+  if (lastEntry === entry.equals) {
+    lastEntry = entry.ce
+    currentOperand = '0'
+    //previousOperand
+  }
 }
 
 function updateDisplay() {
@@ -542,14 +550,14 @@ operationButtons.forEach((button) => {
 
 // Equals Button
 equalsButton.addEventListener('click', () => {
-  if (lastEntry === entry.equals) {
-    compute()
-    return
-  }
+  // if (lastEntry === entry.equals) {
+  //   compute()
+  //   return
+  // }
 
   compute()
-  previousOperand = currentOperand
   lastEntry = entry.equals
+  previousOperand = currentOperand
   updateDisplay()
 })
 
