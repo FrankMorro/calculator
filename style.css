@@ -197,10 +197,10 @@ body {
 }
 
 a {
-  /* text-decoration-line: none; */
+  text-decoration-line: none;
   /* text-decoration-line: underline; */
   text-decoration-color: #b2ab8c;
-  text-underline-offset: 5px;
+  /* text-underline-offset: 5px; */
 }
 
 .footer-text {
