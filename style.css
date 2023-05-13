@@ -134,12 +134,16 @@ body {
   color: #eeeeee;
 }
 
+.digit:hover {
+  background-color: #6b728e;
+}
+
 .digit {
   background-color: #6b728e;
 }
 
 .keypad-button:active {
-  background-color: #47597e;
+  background-color: #6b728e;
   transform: scale(0.95);
   color: #eeeeee;
 
