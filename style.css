@@ -142,6 +142,9 @@ body {
   background-color: #47597e;
   transform: scale(0.95);
   color: #eeeeee;
+
+  color: inherit;
+  background-color: inherit;
 }
 
 .keypad-button:focus {

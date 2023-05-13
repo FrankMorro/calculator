@@ -239,7 +239,7 @@ function updateDisplay() {
     clear()
     changeTextSize(24)
     isError = true
-    currentOperandDisplay.textContent = 'No se puede dividir entre cero'
+    currentOperandDisplay.textContent = 'Can not be divided by zero'
     return
   }
 
@@ -297,7 +297,7 @@ function square() {
   if (lastEntry === entry.function) {
     square = Number(currentOperand) ** 2
     if (square === Infinity) {
-      currentOperandDisplay.textContent = 'Desbordamiento'
+      currentOperandDisplay.textContent = 'Overflow'
       isError = true
       return
     } else {
@@ -340,7 +340,7 @@ function square() {
 function sqrt() {
   if (currentOperand < 0) {
     previousOperandDisplay.textContent = `\u221A${currentOperand}`
-    currentOperandDisplay.textContent = 'Entrada no válida'
+    currentOperandDisplay.textContent = 'Invalid input'
     currentOperand = ''
     return
   }
@@ -491,7 +491,6 @@ function getPercentage() {
 /***** Event Listeners *****/
 // Percentage Button
 percentageButton.addEventListener('click', (button) => {
-  // TODO Pendiente agregar funcionalidad
   getPercentage()
 })
 
