@@ -536,10 +536,35 @@ equalsButton.addEventListener('click', () => {
     return
   }
 
-  compute()
-  lastEntry = entry.equals
-  previousOperand = currentOperand
-  updateDisplay()
+  if (lastEntry === entry.digit) {
+    compute()
+    //previousOperand = currentOperand
+    //updateDisplay()
+  }
+
+  //updateDisplay()
+
+  // if (lastEntry === entry.operator) {
+  //   previousOperandDisplay.textContent = `${previousOperand} =`
+  //   //currentOperand = previousOperand
+  //   //previousOperand = ''
+  // }
+
+  // compute()
+
+  console.log(lastEntry)
+
+  if (lastEntry === entry.operator) {
+    previousOperandDisplay.textContent = `${previousOperand} =`
+    currentOperation = ''
+    operation = ''
+    previousOperand = ''
+  } else {
+    previousOperand = currentOperand
+    lastEntry = entry.equals
+    updateDisplay()
+  }
+  // lastEntry = entry.equals
 })
 
 // PlusMn Button
