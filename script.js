@@ -158,6 +158,10 @@ function appendDigit(number) {
 }
 
 function chooseOperation(operationCurrent) {
+  console.log('current first', currentOperand)
+  console.log(lastEntry)
+  console.log(previousOperand)
+  console.log(currentOperand)
   if (currentOperand === '') {
     operation = operationCurrent
     currentOperation = operationCurrent
@@ -172,6 +176,15 @@ function chooseOperation(operationCurrent) {
   currentOperation = operationCurrent
   previousOperand = currentOperand
   currentOperand = ''
+
+  // TODO
+  console.log(
+    'chooseOperation ',
+    'pre ',
+    previousOperand,
+    'current ',
+    currentOperand
+  )
 
   previousOperandDisplay.textContent = previousOperand + ' ' + operationCurrent
 
@@ -337,9 +350,19 @@ function sqrt() {
     return
   }
 
-  let sqrt = 0
+  let sqrt = 0.0
 
-  if (lastEntry === entry.equals || lastEntry === entry.digit) {
+  // if (lastEntry === entry.function) {
+  //   sqrt = Math.sqrt(Number(currentOperand))
+  //   previousOperandDisplay.textContent = `\u221A(${currentOperand})`
+  //   currentOperandDisplay.textContent = sqrt
+  // }
+
+  if (
+    lastEntry === entry.equals ||
+    lastEntry === entry.digit ||
+    lastEntry === entry.function
+  ) {
     sqrt = Math.sqrt(Number(currentOperand))
     previousOperandDisplay.textContent = `\u221A(${currentOperand})`
     currentOperandDisplay.textContent = sqrt
@@ -542,10 +565,11 @@ equalsButton.addEventListener('click', () => {
 
   if (lastEntry === entry.operator) {
     previousOperandDisplay.textContent = `${previousOperand} =`
-    currentOperation = ''
+    currentOperand = previousOperandDisplay.textContent
     operation = ''
     previousOperand = ''
   } else {
+    // currentOperand
     previousOperand = currentOperand
     lastEntry = entry.equals
     updateDisplay()

@@ -126,7 +126,7 @@ body {
   background-color: #334257;
   color: azure;
 
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .keypad-button:hover {
