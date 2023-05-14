@@ -167,7 +167,7 @@ function chooseOperation(operationCurrent) {
   }
 
   if (previousOperand !== '') {
-    console.log('En digit COMPUTE', previousOperand, 'lastEntry ', lastEntry)
+    // console.log('En digit COMPUTE', previousOperand, 'lastEntry ', lastEntry)
     compute()
   }
 
