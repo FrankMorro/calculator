@@ -223,9 +223,8 @@ function compute() {
     changeTextSize(40)
   }
 
-  console.log('Calculate ', calculate)
-  previousOperandDisplay.textContent = calculate.toString()
-  currentOperandDisplay.textContent = calculate.toString()
+  previousOperandDisplay.textContent = previousOperand.toString()
+  currentOperandDisplay.textContent = currentOperand.toString()
   previousOperand = ''
 }
 
@@ -238,12 +237,6 @@ function updateDisplay() {
     return
   }
 
-  console.log(
-    'UpdateDisplay choose pre ',
-    previousOperand,
-    'choose current',
-    currentOperand
-  )
   currentOperandDisplay.textContent = getDisplayNumber(currentOperand)
 
   if (lastEntry === entry.operator) {
@@ -394,7 +387,6 @@ function frac1x() {
   }
 
   if (lastEntry === entry.operator) {
-    console.log('previous operand', previousOperand)
     frac1x = 1 / previousOperand
     previousOperandDisplay.textContent = `1/(${previousOperand})`
   }
@@ -420,8 +412,6 @@ function frac1x() {
 function getPercentage() {
   let percent = 0
   let currenPercent = 0
-
-  console.log(lastEntry)
 
   switch (currentOperation) {
     case '÷':
@@ -554,7 +544,6 @@ equalsButton.addEventListener('click', () => {
 
 // PlusMn Button
 plusMnButton.addEventListener('click', () => {
-  console.log(currentOperand, typeof currentOperand)
   if (currentOperand === '0') {
     return
   }
@@ -566,4 +555,10 @@ plusMnButton.addEventListener('click', () => {
   }
 
   currentOperandDisplay.textContent = getDisplayNumber(currentOperand)
+
+  if (lastEntry === entry.equals) {
+    previousOperand = ''
+  }
+
+  lastEntry = entry.equals
 })
