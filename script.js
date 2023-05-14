@@ -158,6 +158,8 @@ function appendDigit(number) {
 }
 
 function chooseOperation(operationCurrent) {
+  // console.log('TODO', currentOperand)
+
   if (currentOperand === '') {
     operation = operationCurrent
     currentOperation = operationCurrent
@@ -165,6 +167,7 @@ function chooseOperation(operationCurrent) {
   }
 
   if (previousOperand !== '') {
+    console.log('En digit COMPUTE', previousOperand, 'lastEntry ', lastEntry)
     compute()
   }
 
@@ -183,15 +186,18 @@ function chooseOperation(operationCurrent) {
 }
 
 function compute() {
-  // if (lastEntry === entry.equals) {
-  //   operand1 = parseFloat(previousOperand)
-  //   operand2 = parseFloat(currentOperand)
-  // }
+  if (lastEntry !== entry.equals) {
+    operand1 = parseFloat(previousOperand)
+    operand2 = parseFloat(currentOperand)
+  }
 
   //
 
-  operand1 = parseFloat(previousOperand)
-  operand2 = parseFloat(currentOperand)
+  // operand1 = parseFloat(previousOperand)
+  // operand2 = parseFloat(currentOperand)
+
+  console.log('Operand1 ', operand1)
+  console.log('Operand2 ', operand2)
 
   if (isNaN(operand1) || isNaN(operand2)) return
 
@@ -229,16 +235,17 @@ function compute() {
     changeTextSize(40)
   }
 
+  console.log('Calculate ', calculate)
   previousOperandDisplay.textContent = calculate.toString()
   currentOperandDisplay.textContent = calculate.toString()
   previousOperand = ''
 
-  console.log(lastEntry)
-  if (lastEntry === entry.equals) {
-    lastEntry = entry.ce
-    currentOperand = '0'
-    //previousOperand
-  }
+  // console.log(lastEntry)
+  // if (lastEntry === entry.equals) {
+  //   // lastEntry = entry.ce
+  //   //currentOperand = '0'
+  //   //previousOperand
+  // }
 }
 
 function updateDisplay() {
@@ -251,6 +258,12 @@ function updateDisplay() {
     return
   }
 
+  console.log(
+    'UpdateDisplay choose pre ',
+    previousOperand,
+    'choose current',
+    currentOperand
+  )
   currentOperandDisplay.textContent = getDisplayNumber(currentOperand)
 
   if (lastEntry === entry.operator) {
@@ -265,6 +278,7 @@ function updateDisplay() {
   } else {
     if (currentOperation === '') return
 
+    //console.log('LastEntryYYY ', lastEntry)
     if (lastEntry === entry.equals) {
       previousOperandDisplay.textContent = `${getDisplayNumber(
         operand1
