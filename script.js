@@ -158,8 +158,6 @@ function appendDigit(number) {
 }
 
 function chooseOperation(operationCurrent) {
-  // console.log('TODO', currentOperand)
-
   if (currentOperand === '') {
     operation = operationCurrent
     currentOperation = operationCurrent
@@ -167,7 +165,6 @@ function chooseOperation(operationCurrent) {
   }
 
   if (previousOperand !== '') {
-    // console.log('En digit COMPUTE', previousOperand, 'lastEntry ', lastEntry)
     compute()
   }
 
@@ -190,14 +187,6 @@ function compute() {
     operand1 = parseFloat(previousOperand)
     operand2 = parseFloat(currentOperand)
   }
-
-  //
-
-  // operand1 = parseFloat(previousOperand)
-  // operand2 = parseFloat(currentOperand)
-
-  console.log('Operand1 ', operand1)
-  console.log('Operand2 ', operand2)
 
   if (isNaN(operand1) || isNaN(operand2)) return
 
@@ -222,7 +211,6 @@ function compute() {
       return
   }
 
-  //currentOperand = calculate
   previousOperand = calculate
   currentOperand = calculate
   operation = undefined
@@ -239,17 +227,9 @@ function compute() {
   previousOperandDisplay.textContent = calculate.toString()
   currentOperandDisplay.textContent = calculate.toString()
   previousOperand = ''
-
-  // console.log(lastEntry)
-  // if (lastEntry === entry.equals) {
-  //   // lastEntry = entry.ce
-  //   //currentOperand = '0'
-  //   //previousOperand
-  // }
 }
 
 function updateDisplay() {
-  // console.log(calculate, typeof calculate)
   if (calculate === Infinity || calculate === -Infinity) {
     clear()
     changeTextSize(24)
@@ -278,7 +258,6 @@ function updateDisplay() {
   } else {
     if (currentOperation === '') return
 
-    //console.log('LastEntryYYY ', lastEntry)
     if (lastEntry === entry.equals) {
       previousOperandDisplay.textContent = `${getDisplayNumber(
         operand1
@@ -343,7 +322,6 @@ function square() {
 
   if (lastEntry === entry.digit) {
     currentOperand = ''
-    // lastEntry = entry.equals
   }
 
   currentOperand = square
@@ -354,7 +332,6 @@ function square() {
     changeTextSize(40)
   }
 
-  // currentOperandDisplay.textContent = getDisplayNumber(square.toFixed(6))
   currentOperandDisplay.textContent = getDisplayNumber(square)
   lastEntry = entry.function
 }
@@ -367,16 +344,25 @@ function sqrt() {
     return
   }
 
-  let sqrt = Math.sqrt(Number(currentOperand))
+  let sqrt = 0
+
+  if (lastEntry === entry.equals || lastEntry === entry.digit) {
+    sqrt = Math.sqrt(Number(currentOperand))
+    previousOperandDisplay.textContent = `\u221A(${currentOperand})`
+    currentOperandDisplay.textContent = sqrt
+  }
+
+  if (lastEntry === entry.operator) {
+    sqrt = Math.sqrt(Number(previousOperand))
+    previousOperandDisplay.textContent = `\u221A(${previousOperand})`
+    currentOperandDisplay.textContent = sqrt
+  }
 
   if (sqrt.toString().length >= 14) {
     changeTextSize(30)
   } else {
     changeTextSize(40)
   }
-
-  previousOperandDisplay.textContent = `\u221A(${currentOperand})`
-  currentOperandDisplay.textContent = sqrt
 
   currentOperand = sqrt
   lastEntry = entry.function
@@ -389,10 +375,7 @@ function frac1x() {
 
   let frac1x = 0
 
-  // console.log('lastEntry ', lastEntry)
-
   if (lastEntry === entry.function) {
-    // console.log('current FUNCTION ', currentOperand)
     frac1x = 1 / currentOperand
 
     if (frac1x === Infinity) {
@@ -406,15 +389,9 @@ function frac1x() {
   }
 
   if (lastEntry === entry.equals || lastEntry === entry.digit) {
-    // console.log('current digit ', currentOperand)
     frac1x = 1 / currentOperand
     previousOperandDisplay.textContent = `1/(${currentOperand})`
   }
-
-  // if (lastEntry === entry.digit) {
-  //   frac1x = 1 / currentOperand
-  //   previousOperandDisplay.textContent = `1/(${currentOperand})`
-  // }
 
   if (lastEntry === entry.operator) {
     console.log('previous operand', previousOperand)
@@ -564,10 +541,10 @@ operationButtons.forEach((button) => {
 
 // Equals Button
 equalsButton.addEventListener('click', () => {
-  // if (lastEntry === entry.equals) {
-  //   compute()
-  //   return
-  // }
+  if (lastEntry === entry.equals) {
+    compute()
+    return
+  }
 
   compute()
   lastEntry = entry.equals
