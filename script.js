@@ -434,43 +434,43 @@ function frac1x() {
 
 function getPercentage() {
   let percent = 0
-  let currenPercent = 0
+  let currentPercent = 0
 
   switch (currentOperation) {
     case '÷':
       if (lastEntry === entry.operator) {
-        currenPercent = previousOperand / 100
-        percent = previousOperand * currenPercent
-        currentOperand = currenPercent
+        currentPercent = previousOperand / 100
+        percent = previousOperand * currentPercent
+        currentOperand = currentPercent
       } else {
-        currenPercent = currentOperand / 100
-        percent = previousOperand * currenPercent
-        currentOperand = currenPercent
+        currentPercent = currentOperand / 100
+        percent = previousOperand * currentPercent
+        currentOperand = currentPercent
       }
 
-      previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${currenPercent} =`
-      currentOperandDisplay.textContent = currenPercent
+      previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${currentPercent} =`
+      currentOperandDisplay.textContent = currentPercent
       break
 
     case '×':
       if (lastEntry === entry.operator) {
-        currenPercent = previousOperand / 100
-        percent = previousOperand * currenPercent
-        currentOperand = currenPercent
+        currentPercent = previousOperand / 100
+        percent = previousOperand * currentPercent
+        currentOperand = currentPercent
       } else {
-        currenPercent = currentOperand / 100
-        percent = previousOperand * currenPercent
-        currentOperand = currenPercent
+        currentPercent = currentOperand / 100
+        percent = previousOperand * currentPercent
+        currentOperand = currentPercent
       }
 
-      previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${currenPercent} =`
-      currentOperandDisplay.textContent = currenPercent
+      previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${currentPercent} =`
+      currentOperandDisplay.textContent = currentPercent
 
       break
 
     case '−':
-      currenPercent = currentOperand / 100
-      percent = previousOperand * currenPercent
+      currentPercent = currentOperand / 100
+      percent = previousOperand * currentPercent
       currentOperand = percent
 
       previousOperandDisplay.textContent = `${previousOperand} ${currentOperation} ${percent} =`
@@ -479,12 +479,12 @@ function getPercentage() {
 
     case '+':
       if (lastEntry === entry.operator) {
-        currenPercent = previousOperand / 100
-        percent = previousOperand * currenPercent
+        currentPercent = previousOperand / 100
+        percent = previousOperand * currentPercent
         currentOperand = percent
       } else {
-        currenPercent = currentOperand / 100
-        percent = previousOperand * currenPercent
+        currentPercent = currentOperand / 100
+        percent = previousOperand * currentPercent
         currentOperand = percent
       }
 
@@ -554,7 +554,7 @@ operationButtons.forEach((button) => {
 
 // Equals Button
 equalsButton.addEventListener('click', () => {
-  if (lastEntry === entry.equals) {
+  if (lastEntry === entry.equals || lastEntry === entry.percent ) {
     compute()
     return
   }
