@@ -554,7 +554,7 @@ operationButtons.forEach((button) => {
 
 // Equals Button
 equalsButton.addEventListener('click', () => {
-  if (lastEntry === entry.equals) {
+  if (lastEntry === entry.equals || lastEntry === entry.percent) {
     compute()
     return
   }
