@@ -1,5 +1,5 @@
 # Calculator
-<a ahttps://frankmorro.github.io/calculator/>View Calculator</a>
+<a https://frankmorro.github.io/calculator/> View Calculator </a>
 
 Calculator using only JavaScript, without modules or classes. It is as a demonstration of the skills learned so far, following [https://www.theodinproject.com/lessons/foundations-calculator].
 
